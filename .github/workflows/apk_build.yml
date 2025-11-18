@@ -12,6 +12,9 @@ jobs:
       - name: Kodları çek
         uses: actions/checkout@v3
 
+      - name: Git kurulumu
+        run: sudo apt install -y git
+
       - name: Python kurulumu
         uses: actions/setup-python@v4
         with:
