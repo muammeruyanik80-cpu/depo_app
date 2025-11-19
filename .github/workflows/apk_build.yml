@@ -39,6 +39,8 @@ jobs:
           mkdir -p $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
           curl -o sdk-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
           unzip -q sdk-tools.zip -d $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
+        env:
+          PATH: $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH
 
       - name: Android lisanslarını kabul et
         run: yes | sdkmanager --licenses
@@ -47,6 +49,8 @@ jobs:
 
       - name: APK üretimi
         run: buildozer android debug
+        env:
+          PATH: $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH
 
       - name: APK'yı kaydet
         uses: actions/upload-artifact@v4
