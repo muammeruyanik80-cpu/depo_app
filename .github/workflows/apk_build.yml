@@ -15,10 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Git klasörünü güvenli yap
-        run: git config --global --add safe.directory /home/runner/work/depo_app/depo_app
-
-      - name: .git klasörü var mı?
-        run: ls -la .git || echo ".git klasörü yok"
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
 
       - name: Git kurulumu
         run: |
