@@ -117,4 +117,4 @@ class DepoApp(App):
         self.root.ids.shelf.text = ''
 
 if __name__ == '__main__':
-    DepoApp().run()
+    DepoApp().run()# tetikleme testi 2
