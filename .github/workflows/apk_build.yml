@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Git klasörünü güvenli yap
+      - name: Git ayarları
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config --global user.email "actions@github.com"
@@ -17,22 +17,19 @@ jobs:
 
       - name: Kodları çek
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Git kurulumu
-        run: |
-          sudo apt update
-          sudo apt install -y git
 
       - name: Python kurulumu
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Buildozer ve bağımlılıkların kurulumu
+      - name: Sistem bağımlılıkları
         run: |
-          sudo apt install -y zip unzip openjdk-17-jdk python3-pip
+          sudo apt update
+          sudo apt install -y zip unzip openjdk-17-jdk python3-pip curl
+
+      - name: Python paketleri
+        run: |
           pip install --break-system-packages cython
           pip install --break-system-packages appdirs colorama jinja2 "sh>=1.10,<2.0" build toml packaging setuptools
           pip install --break-system-packages buildozer
