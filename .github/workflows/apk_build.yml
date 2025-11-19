@@ -27,11 +27,12 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Buildozer kurulumu
+      - name: Buildozer ve bağımlılıkların kurulumu
         run: |
           sudo apt install -y zip unzip openjdk-17-jdk python3-pip
-          pip install --upgrade pip
-          pip install buildozer
+          pip install --break-system-packages cython
+          pip install --break-system-packages appdirs colorama jinja2 "sh>=1.10,<2.0" build toml packaging setuptools
+          pip install --break-system-packages buildozer
 
       - name: APK üretimi
         run: |
