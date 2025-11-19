@@ -36,6 +36,8 @@ jobs:
 
       - name: Android lisanslarını kabul et
         run: yes | sdkmanager --licenses
+        env:
+          PATH: $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin:$PATH
 
       - name: APK üretimi
         run: buildozer android debug
