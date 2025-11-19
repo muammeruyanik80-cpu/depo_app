@@ -9,13 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Git klasörünü güvenli yap
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
       - name: Kodları çek
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: Git klasörünü güvenli yap
-        run: git config --global --add safe.directory $GITHUB_WORKSPACE
 
       - name: Git kurulumu
         run: |
@@ -33,6 +36,12 @@ jobs:
           pip install --break-system-packages cython
           pip install --break-system-packages appdirs colorama jinja2 "sh>=1.10,<2.0" build toml packaging setuptools
           pip install --break-system-packages buildozer
+
+      - name: Android SDK araçlarını indir
+        run: |
+          mkdir -p $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
+          curl -o sdk-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip -q sdk-tools.zip -d $HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest
 
       - name: Android lisanslarını kabul et
         run: yes | sdkmanager --licenses
