@@ -34,9 +34,11 @@ jobs:
           pip install --break-system-packages appdirs colorama jinja2 "sh>=1.10,<2.0" build toml packaging setuptools
           pip install --break-system-packages buildozer
 
+      - name: Android lisanslarını kabul et
+        run: yes | sdkmanager --licenses
+
       - name: APK üretimi
-        run: |
-          buildozer android debug
+        run: buildozer android debug
 
       - name: APK'yı kaydet
         uses: actions/upload-artifact@v4
