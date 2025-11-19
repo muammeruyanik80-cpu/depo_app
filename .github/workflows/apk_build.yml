@@ -14,6 +14,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Git klasörünü güvenli yap
+        run: git config --global --add safe.directory /home/runner/work/depo_app/depo_app
+
       - name: .git klasörü var mı?
         run: ls -la .git || echo ".git klasörü yok"
 
@@ -35,7 +38,6 @@ jobs:
 
       - name: APK üretimi
         run: |
-          buildozer init || true
           buildozer android debug
 
       - name: APK'yı kaydet
