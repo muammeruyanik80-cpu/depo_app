@@ -120,3 +120,4 @@ if __name__ == '__main__':
     DepoApp().run()# tetikleme testi 2
 # tetikleme testi 4
 # tetikleme testi 7
+# tetikleme testi 10
