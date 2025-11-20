@@ -10,7 +10,8 @@ RUN mkdir -p /opt/android-sdk/cmdline-tools/latest && \
     unzip commandlinetools-linux-9477386_latest.zip && \
     rm commandlinetools-linux-9477386_latest.zip
 
-ENV PATH="/opt/android-sdk/cmdline-tools/latest/bin:${PATH}"
+ENV ANDROID_HOME="/opt/android-sdk"
+ENV PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 
 RUN yes | sdkmanager --licenses && \
     sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
