@@ -1,4 +1,4 @@
-name: Docker Buildozer APK
+name: Buildozer APK inside Docker
 
 on:
   push:
@@ -8,19 +8,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: kivy/buildozer:latest
 
     steps:
       - name: Kodları çek
         uses: actions/checkout@v3
 
-      - name: Docker kurulumu
-        uses: docker/setup-buildx-action@v2
-
-      - name: Docker ile APK üretimi
+      - name: Ortamı hazırlama
         run: |
-          docker build -t kivy-apk .
+          apt-get update && apt-get install -y openjdk-17-jdk unzip wget git
+          git config --global --add safe.directory /__w/depo_app/depo_app
+
+      - name: Android SDK kurulumu
+        run: |
+          mkdir -p /opt/android-sdk/cmdline-tools/latest
+          cd /opt/android-sdk/cmdline-tools/latest
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip commandlinetools-linux-9477386_latest.zip
+          rm commandlinetools-linux-9477386_latest.zip
+          export PATH="/opt/android-sdk/cmdline-tools/latest/bin:${PATH}"
+          yes | sdkmanager --licenses
+          sdkmanager "platform-tools" "platforms;android-31" "build-tools;31.0.0"
+
+      - name: APK üretimi
+        run: |
+          buildozer android debug
           mkdir -p bin
-          docker run --rm -v ${{ github.workspace }}/bin:/app/bin kivy-apk
+          cp bin/*.apk ${{ github.workspace }}/bin/
 
       - name: APK'yı kaydet
         uses: actions/upload-artifact@v4
