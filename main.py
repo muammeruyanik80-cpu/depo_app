@@ -124,3 +124,4 @@ if __name__ == '__main__':
 # tetikleme testi 14
 # tetikleme testi 15
 # tetikleme testi 18
+# tetikleme testi 20
