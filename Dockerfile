@@ -20,3 +20,5 @@ WORKDIR /app
 COPY . /app
 
 RUN buildozer android debug
+
+RUN chmod +x /opt/android-sdk/cmdline-tools/latest/cmdline-tools/bin/sdkmanager
