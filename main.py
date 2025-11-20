@@ -118,3 +118,4 @@ class DepoApp(App):
 
 if __name__ == '__main__':
     DepoApp().run()# tetikleme testi 2
+# tetikleme testi 4
