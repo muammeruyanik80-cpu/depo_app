@@ -14,7 +14,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up Docker
-      run: |
-        docker build -t kivy-apk .
-        docker run --rm -v ${{ github.workspace }}:/app kivy-apk
+    - name: Build Docker image
+      run: docker build -t kivy-apk .
+
+    - name: Run Docker container to build APK
+      run: docker run --rm -v ${{ github.workspace }}:/app kivy-apk
